@@ -1,0 +1,16 @@
+{
+  "name": "ble-bot",
+  "description": "BLE controlled 2-wheeled robot",
+  "version": "0.0.1",
+  "main": "app.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+      "mraa": "latest",
+      "async": "latest",
+      "noble": "latest",
+      "bleno": "latest",
+      "util": "latest"
+  }
+}
