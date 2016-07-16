@@ -108,7 +108,8 @@ FirstCharacteristic.prototype.onReadRequest = function(offset, callback) {
 // BLE write request
 FirstCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
   this._value = data;
-  switch (data) {
+  var command = this._value.toString("utf-8");
+  switch (command) {
       case "fwd":
         Bot.forward();
         break;
@@ -125,7 +126,7 @@ FirstCharacteristic.prototype.onWriteRequest = function(data, offset, withoutRes
         Bot.reset();
         break;
     }
-  console.log('FirstCharacteristic - onWriteRequest: value = ' + this._value.toString("utf-8"));
+  console.log('FirstCharacteristic - onWriteRequest: value = ' + command);
 
   if (this._updateValueCallback) {
     console.log('FirstCharacteristic - onWriteRequest: notifying');
