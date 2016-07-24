@@ -46,7 +46,7 @@ var Bot = {
     this.m11.write(0);
   },
   backward: function () {
-    console.log("Move forward");
+    console.log("Move backward");
     this.e0.write(1);
     this.e1.write(1);
     this.m00.write(1);
@@ -55,7 +55,7 @@ var Bot = {
     this.m11.write(0);
   },
   forward: function () {
-    console.log("Move backward");
+    console.log("Move forward");
     this.e0.write(1);
     this.e1.write(1);
     this.m00.write(0);
@@ -64,7 +64,7 @@ var Bot = {
     this.m11.write(1);
   },
   left: function () {
-    console.log("Turn right");
+    console.log("Turn left");
     this.e0.write(1);
     this.e1.write(1);
     this.m00.write(1);
@@ -73,7 +73,7 @@ var Bot = {
     this.m11.write(1);
   },
   right: function () {
-    console.log("Turn left");
+    console.log("Turn right");
     this.e0.write(1);
     this.e1.write(1);
     this.m00.write(0);
