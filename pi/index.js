@@ -22,6 +22,23 @@ socket.on('connect', function(){
 
 socket.on('weebo-control', function(data){
     console.log("Received instruction:", data);
+    switch (data) {
+        case "l": {
+            console.log("going left")
+        }
+        case "r": {
+            console.log("going left")
+        }
+        case "f": {
+            console.log("going forward")
+        }
+        case "b": {
+            console.log("going backward")
+        }
+        default: {
+            console.log("stopping")
+        }
+    }
 });
 
 socket.on('disconnect', function(){
