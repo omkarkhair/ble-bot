@@ -20,29 +20,29 @@ function driveReset () {
 function driveLeft () {
     in1.writeSync(1);
     in2.writeSync(0);
-    in3.writeSync(1);
-    in4.writeSync(0);
+    in3.writeSync(0);
+    in4.writeSync(1);
 }
 
 function driveRight () {
     in1.writeSync(0);
-    in2.writeSync(0);
-    in3.writeSync(0);
+    in2.writeSync(1);
+    in3.writeSync(1);
     in4.writeSync(0);
 }
 
 function driveForward () {
-    in1.writeSync(0);
+    in1.writeSync(1);
     in2.writeSync(0);
-    in3.writeSync(0);
+    in3.writeSync(1);
     in4.writeSync(0);
 }
 
 function driveBackward () {
     in1.writeSync(0);
-    in2.writeSync(0);
+    in2.writeSync(1);
     in3.writeSync(0);
-    in4.writeSync(0);
+    in4.writeSync(1);
 }
 
 driveReset();
