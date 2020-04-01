@@ -23,21 +23,21 @@ socket.on('connect', function(){
 socket.on('weebo-control', function(data){
     console.log("Received instruction:", data);
     switch (data) {
-        case "l": {
+        case "l":
             console.log("going left")
-        }
-        case "r": {
+            break;
+        case "r":
             console.log("going left")
-        }
-        case "f": {
+            break;
+        case "f":
             console.log("going forward")
-        }
-        case "b": {
+            break;
+        case "b":
             console.log("going backward")
-        }
-        default: {
+            break;
+        default:
             console.log("stopping")
-        }
+            break;
     }
 });
 
