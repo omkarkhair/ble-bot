@@ -10,11 +10,42 @@ const in4 = new Gpio('22', 'out')
 // current LED state
 let isLedOn = false;
 
-in1.writeSync(0);
-in2.writeSync(0);
-in3.writeSync(0);
-in4.writeSync(0);
+function driveReset () {
+    in1.writeSync(0);
+    in2.writeSync(0);
+    in3.writeSync(0);
+    in4.writeSync(0);
+}
 
+function driveLeft () {
+    in1.writeSync(1);
+    in2.writeSync(0);
+    in3.writeSync(1);
+    in4.writeSync(0);
+}
+
+function driveRight () {
+    in1.writeSync(0);
+    in2.writeSync(0);
+    in3.writeSync(0);
+    in4.writeSync(0);
+}
+
+function driveForward () {
+    in1.writeSync(0);
+    in2.writeSync(0);
+    in3.writeSync(0);
+    in4.writeSync(0);
+}
+
+function driveBackward () {
+    in1.writeSync(0);
+    in2.writeSync(0);
+    in3.writeSync(0);
+    in4.writeSync(0);
+}
+
+driveReset();
 
 socket.on('connect', function(){
     console.log("Connected to weebo server");
@@ -22,21 +53,27 @@ socket.on('connect', function(){
 
 socket.on('weebo-control', function(data){
     console.log("Received instruction:", data);
+    driveReset();
     switch (data) {
         case "l":
             console.log("going left")
+            driveLeft();
             break;
         case "r":
-            console.log("going left")
+            console.log("going right")
+            driveRight();
             break;
         case "f":
-            console.log("going forward")
+            console.log("going forward");
+            driveForward();
             break;
         case "b":
             console.log("going backward")
+            driveBackward();
             break;
         default:
             console.log("stopping")
+            driveReset();
             break;
     }
 });
