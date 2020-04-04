@@ -1,36 +1,117 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Weebo - Command Center</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      #periscope { text-align: center; }
+      #controls { text-align: center; }
     </style>
   </head>
   <body>
+    <div id="periscope"></div>
+    <div id="controls">
+      <table style="width: 200px;">
+        <tr>
+          <td></td>
+          <td>
+            <button class="control-key" data-control="forward" id="ctrlFwd">Forward</button>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <button class="control-key" data-control="left" id="ctrlLft">Left</button>
+          </td>
+          <td></td>
+          <td>
+            <button class="control-key" data-control="right" id="ctrlRgt">Right</button>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button class="control-key" data-control="backward" id="ctrlBwd">Backward</button>
+          </td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
     <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+
       $(function () {
+        // Initialize control routines
+        function sendControl (control) {
+          let c = "s";
+          let msg = "Stop!"
+          switch (control) {
+            case "forward":
+              msg = "Move forward"
+              c = "f"
+              break;
+            
+            case "backward":
+              msg = "Move backward"
+              c = "b"
+              break;
+
+            case "left":
+              msg = "Move left"
+              c = "l"
+              break;
+            
+            case "right":
+              msg = "Move right"
+              c = "r"
+              break;
+
+            default:
+              msg = "Stop!"
+              c = "s"
+              break;
+          }
+          socket.emit('weebo-control', c);
+        }
+
+        // Load camera feed
+        let feedurl = "http://" + window.location.hostname + ":8081"
+        $('<iframe>', {
+          src: feedurl,
+          id:  'video-feed',
+          frameborder: 0,
+          height: 480,
+          width: 640,
+          scrolling: 'no'
+        }).appendTo('#periscope');
+
+        // Initialize control keys
         var socket = io();
+        $(".control-key")
+          .mousedown(function() {
+            let c = $(this).data("control")
+            console.log("Sending", c)
+            sendControl(c);
+          })
+          .mouseup(function () {
+            sendControl("stop");
+          })
+
+        
         $('form').submit(function(e){
           e.preventDefault(); // prevents page reloading
-          socket.emit('weebo-control', $('#m').val());
+          
           $('#m').val('');
           return false;
         });
         socket.on('weebo-control', function(msg){
-            $('#messages').append($('<li>').text(msg));
+          $('#messages').append($('<li>').text(msg));
         });
       });
     </script>
