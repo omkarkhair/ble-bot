@@ -2,6 +2,9 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8888 });
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
