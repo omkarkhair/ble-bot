@@ -9,7 +9,7 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
       #periscope { text-align: center; }
-      #controls { text-align: center; }
+      #controls { text-align: center; margin-left: auto; margin-right: auto; }
     </style>
   </head>
   <body>
@@ -111,7 +111,7 @@
           return false;
         });
         socket.on('weebo-control', function(msg){
-          $('#messages').append($('<li>').text(msg));
+          $('#messages').prepend($('<li>').text(msg));
         });
       });
     </script>
