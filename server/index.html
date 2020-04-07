@@ -108,7 +108,7 @@
           $('#messages').prepend($('<li>').text(msg));
         });
 
-        socket.on('frame', function () {
+        socket.on('frame', function (frame) {
           $('#video-frame').attr('src', 'data:image/jpg;base64,' + frame);
         })
       });
