@@ -14,7 +14,9 @@
     </style>
   </head>
   <body>
-    <div id="periscope"></div>
+    <div id="periscope">
+      <img id="#video-frame">
+    </div>
     <div id="controls">
       <table style="width: 200px;">
         <tr>
@@ -82,16 +84,6 @@
         }
 
         // Load camera feed
-        let feedurl = "http://" + window.location.hostname + ":8081"
-	feedurl = "http://0792f7d7.ngrok.io"
-        $('<iframe>', {
-          src: feedurl,
-          id:  'video-feed',
-          frameborder: 0,
-          height: 480,
-          width: 640,
-          scrolling: 'no'
-        }).appendTo('#periscope');
 
         // Initialize control keys
         var socket = io();
@@ -115,6 +107,10 @@
         socket.on('weebo-control', function(msg){
           $('#messages').prepend($('<li>').text(msg));
         });
+
+        socket.on('frame', function () {
+          $('#video-frame').attr('src', 'data:image/jpg;base64,' + frame);
+        })
       });
     </script>
   </body>
