@@ -14,10 +14,15 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
         console.log('user disconnected');
     });
+
     socket.on('weebo-control', function(msg){
         console.log('message: ' + msg);
         io.emit('weebo-control', msg);
     });
+
+    socket.on('frame',function(data){
+      socket.broadcast.emit('frame',data);
+    }); 
 });
 
 http.listen(3000, function(){
